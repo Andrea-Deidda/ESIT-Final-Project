@@ -1,0 +1,33 @@
+
+<div class="container p-5">
+    <h1 class="text-center mb-5">
+      Distance Tracking System
+    </h1>
+
+  
+    <table class="table">
+  
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Device ID</th>
+          <th scope="col">Device</th>
+          <th scope="col">Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="pointer" *ngFor="let entry of devices; let i = index" (click)="goToDetails(entry.id)">
+          <th scope="row"> {{i + 1}}</th>
+          <td>{{entry.deviceId}}</td>
+          <td><p id="p" class="limit-overview">{{ entry.device }}</p></td>
+          <td>{{entry.distance}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div>
+
+</div>
+  

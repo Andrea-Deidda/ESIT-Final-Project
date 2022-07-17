@@ -1,0 +1,14 @@
+.limit-overview{
+    overflow: hidden;
+    max-height: 10ch;
+  }
+
+  #p {
+    flex: 1;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+     width:350px;
+     font-size: 16px;
+  }
