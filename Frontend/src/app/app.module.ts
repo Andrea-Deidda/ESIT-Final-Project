@@ -8,6 +8,8 @@ import { DashboardComponent } from './routes/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceService } from './service/device.service';
+import { FooterComponent } from './component/footer/footer.component';
+import { HeaderComponent } from './component/header/header.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { DeviceService } from './service/device.service';
     AppComponent,
     WelcomeComponent,
     DashboardComponent,
+    FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
