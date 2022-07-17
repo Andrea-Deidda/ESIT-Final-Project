@@ -26,11 +26,14 @@ int count = 0;
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
-      Serial.printf("Advertised Device: %s \n", advertisedDevice.toString().c_str());
-      device_name = advertisedDevice.toString().c_str();
+      device_name = advertisedDevice.getName().c_str();
+      if (device_name == "")
+        device_name = "Dispositivo sconosciuto";
+
+      Serial.print(F("Advertised Device: "));
+      Serial.println(device_name);
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       Serial.printf("Distance: %.2f m\n", distance);
-
     }
 };
 
