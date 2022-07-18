@@ -139,6 +139,7 @@ void publishMessage()
 
 void publishMessageWifi()
 {
+  String timeStamp = printLocalTime();
   StaticJsonDocument<200> doc;
   doc["deviceId"] = timeStamp; 
   doc["device"] = nome_rete;
@@ -159,7 +160,7 @@ void messageHandler(String &topic, String &payload) {
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   connectAWS();
 
   BLEDevice::init("");
