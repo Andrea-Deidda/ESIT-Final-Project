@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceService } from './service/device.service';
 import { FooterComponent } from './component/footer/footer.component';
 import { HeaderComponent } from './component/header/header.component';
+import { DetailsComponent } from './routes/details/details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { HeaderComponent } from './component/header/header.component';
     DashboardComponent,
     FooterComponent,
     HeaderComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,

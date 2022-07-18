@@ -10,6 +10,7 @@
 #include <BLEScan.h>
 #include <BLEAdvertisedDevice.h>
 
+
 // The MQTT topics that this device should publish/subscribe
 #define AWS_IOT_PUBLISH_TOPIC   "esp32/pub"
 #define AWS_IOT_SUBSCRIBE_TOPIC "esp32/sub"
@@ -25,11 +26,13 @@ String device_name;
 int count = 0;
 String nome_rete;
 String distanza_rete;
+String address;
 String scelta = "ble";
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
       device_name = advertisedDevice.getName().c_str();
+      address = advertisedDevice.getAddress().toString().c_str();
       if (device_name == "")
         device_name = "Dispositivo sconosciuto";
       //int8_t device_pow = advertisedDevice.getTXPower();
@@ -37,6 +40,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       Serial.println(device_name);
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       Serial.printf("Distance: %.2f m\n", distance);
+      Serial.println(address);
     }
 };
 
@@ -117,7 +121,7 @@ String printLocalTime(){
   String timeMinuteSecond(timeSecond);
 
   
-  String timeStamp = timeYearString + timeMonthString + timeDayString +timeHourString + timeMinuteString + timeMinuteSecond;
+  String timeStamp = timeYearString + "/" + timeMonthString + "/" + timeDayString + "-" + timeHourString + ":" + timeMinuteString + ":" + timeMinuteSecond;
 
   return timeStamp;
 }
@@ -131,6 +135,7 @@ void publishMessage()
   doc["device"] = device_name;
   doc["distance"] = distance;
   doc["protocollo"] = "BLE";
+  doc["address"] = address;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 

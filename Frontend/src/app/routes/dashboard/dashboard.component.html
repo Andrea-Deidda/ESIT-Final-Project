@@ -10,17 +10,17 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Device ID</th>
-          <th scope="col">Device</th>
+          <th scope="col">Device Name</th>
           <th scope="col">Distance</th>
+          <th scope="col">Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="pointer" *ngFor="let entry of devices; let i = index" (click)="goToDetails(entry.id)">
+        <tr class="pointer" *ngFor="let entry of devices; let i = index" (click)="goToDetails(entry.deviceId)">
           <th scope="row"> {{i + 1}}</th>
-          <td>{{entry.deviceId}}</td>
-          <td><p id="p" class="limit-overview">{{ entry.device }}</p></td>
+          <td>{{entry.device }}</td>
           <td>{{entry.distance}}</td>
+          <td>{{entry.deviceId}}</td>
         </tr>
       </tbody>
     </table>

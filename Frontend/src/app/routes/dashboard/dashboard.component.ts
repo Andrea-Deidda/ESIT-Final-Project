@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllDevice();
-    //this.getProva();
   }
 
 
@@ -31,15 +30,9 @@ export class DashboardComponent implements OnInit {
   }
 
   
-  getProva(){
-     this.deviceService.getDeviceProva().subscribe(( response : any) =>{
-      this.devices=response;
-      //console.log(this.devices.payload);
-         })
-   }
-
-  goToDetails(id){
-    this.router.navigateByUrl('/details/' + id)
+  goToDetails(deviceId){
+    console.log(deviceId)
+    this.router.navigateByUrl('/details/' + deviceId)
   }
 
 }
