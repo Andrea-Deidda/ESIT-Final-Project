@@ -1,6 +1,7 @@
 # ESIT-Final-Project
 
 Monitoraggio del distanziamento sociale
+
 Implementazione di un sistema IoT per il monitoraggio del distanziamento sociale mediante
 l’indice RSSI.
 ∙ Il progetto prevede la realizzazione di un sistema scalabile composto da: 1) webapp comprensiva di
