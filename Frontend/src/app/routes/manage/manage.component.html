@@ -1,0 +1,100 @@
+
+<div class="row p-4 my-2 mx-1 border shadow">
+    <button class="btn btn-primary mr-5"[routerLink]="['/dashboard']">Back</button>
+    <h3>Manage board
+    </h3>
+</div>
+
+<form class="pt-5" (ngSubmit)="onSubmit()" #form="ngForm">
+<table >
+    <tr>
+        <th>
+            <div class="protocol">  
+                <h4>Protocol:</h4>
+                <div id="radioButton" class="form-check">
+                <input type="radio" class="form-check-input" id="radioButton1" name="radioButton" value="wifi" checked
+                [(ngModel)]="radioButton1">Wi-Fi
+                <label class="form-check-label" for="radio1"></label>
+              </div>
+              <div id="radioButton" class="form-check">
+                <input type="radio" class="form-check-input" id="radioButton2" name="radioButton" value="ble" checked
+                [(ngModel)]="radioButton2">Bluetooth
+                <label class="form-check-label" for="radio2"></label>
+              </div>
+            </div>
+        
+            <div class="protocol">
+                <h4 >Select Thresholds :</h4>
+        
+        
+            <div class="firstThreshold">
+                <form class="row">
+                   
+                    <div class="col-md-3">
+                        <label></label>
+                        <h6>First Threshold (safe) </h6>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label for="inputFirstThreshold" class="form-label"></label>
+                        <input type="number" class="form-control" id="inputFirstThreshold" required
+                        [(ngModel)]="inputFirstThreshold" name="inputFirstThreshold">   <!-- va aggiunto in tutti-->
+                        </div>
+                </form>
+                <form class="row">
+                   
+                    <div class="col-md-3">
+                        <label></label>
+                        <h6>First Threshold (safe) </h6>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label for="inputSecondThresholdMin" class="form-label"></label>
+                        <input type="number" class="form-control" >
+                        </div>
+                    <div class="col-md-2">
+                        <label for="inputSecondThresholdMax" class="form-label"></label>
+                        <input type="number" class="form-control">
+                        </div>
+                </form>
+                <form class="row">
+                   
+                    <div class="col-md-3">
+                        <label></label>
+                        <h6>First Threshold (safe) </h6>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label for="inputThirdThresholdMin" class="form-label"></label>
+                        <input type="number" class="form-control" >
+                        </div>
+                    <div class="col-md-2">
+                        <label for="inputThirdThresholdMax" class="form-label"></label>
+                        <input type="number" class="form-control">
+                        </div>
+                </form>
+
+                <form class="row">
+                   
+                    <div class="col-md-3">
+                        <label></label>
+                        <h6>First Threshold (safe) </h6>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label for="inputFourthThreshold" class="form-label"></label>
+                        <input type="number" class="form-control" id="inputFourthThreshold" required
+                        [(ngModel)]="inputFourthThreshold" name="inputFourthThreshold">  
+                        </div>
+                </form>
+            
+            </div>
+            </div>
+        </th>
+        <th>
+            <img class="hd" src="https://image.shutterstock.com/image-vector/cogwheel-gear-mechanism-vector-settings-260nw-226269949.jpg">
+        </th>
+        </tr>
+    </table>
+    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
+<form>

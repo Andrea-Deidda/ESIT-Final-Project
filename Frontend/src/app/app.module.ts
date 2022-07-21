@@ -12,6 +12,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import { HeaderComponent } from './component/header/header.component';
 import { DetailsComponent } from './routes/details/details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ManageComponent } from './routes/manage/manage.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     HeaderComponent,
     DetailsComponent,
+    ManageComponent,
   ],
   imports: [
     BrowserModule,
