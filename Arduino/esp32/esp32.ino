@@ -26,13 +26,14 @@ String device_name;
 int count = 0;
 String nome_rete;
 String distanza_rete;
-String address;
-String scelta = "ble";
+String address_ble;
+String address_wifi;
+String scelta = "wifi";
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
       device_name = advertisedDevice.getName().c_str();
-      address = advertisedDevice.getAddress().toString().c_str();
+      address_ble = advertisedDevice.getAddress().toString().c_str();
       if (device_name == "")
         device_name = "Dispositivo sconosciuto";
       //int8_t device_pow = advertisedDevice.getTXPower();
@@ -40,7 +41,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       Serial.println(device_name);
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       Serial.printf("Distance: %.2f m\n", distance);
-      Serial.println(address);
+      Serial.println(address_ble);
     }
 };
 
@@ -121,7 +122,7 @@ String printLocalTime(){
   String timeMinuteSecond(timeSecond);
 
   
-  String timeStamp = timeYearString + "/" + timeMonthString + "/" + timeDayString + "-" + timeHourString + ":" + timeMinuteString + ":" + timeMinuteSecond;
+  String timeStamp = timeYearString + "-" + timeMonthString + "-" + timeDayString + "-" + timeHourString + ":" + timeMinuteString + ":" + timeMinuteSecond;
 
   return timeStamp;
 }
@@ -135,7 +136,7 @@ void publishMessage()
   doc["device"] = device_name;
   doc["distance"] = distance;
   doc["protocollo"] = "BLE";
-  doc["address"] = address;
+  doc["address"] = address_ble;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
@@ -150,6 +151,7 @@ void publishMessageWifi()
   doc["device"] = nome_rete;
   doc["distance"] = distanza_rete;
   doc["protocollo"] = "Wifi";
+  doc["address"] = address_wifi;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
@@ -212,6 +214,7 @@ void WifiScan(){
             Serial.print(": ");
             nome_rete = WiFi.SSID(i);
             distanza_rete = pow(10, ((-72.0 - WiFi.RSSI(i)) / 20.0));
+            address_wifi = WiFi.macAddress();
             Serial.print(WiFi.SSID(i));
             Serial.print(" (");
             Serial.print(WiFi.RSSI(i));
