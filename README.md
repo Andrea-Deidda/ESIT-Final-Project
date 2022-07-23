@@ -10,7 +10,7 @@ l’indice RSSI.
 1) webapp comprensiva di
 backend per la gestione dei dati dei dispositivi e frontend che funge da pannello di amministrazione; 
 
-2)due dispositivi che rappresentano due soggetti.
+2) due dispositivi che rappresentano due soggetti.
 
 ∙ Il monitoraggio della distanza deve avvenire tramite rilevazioni RSSI.
 
