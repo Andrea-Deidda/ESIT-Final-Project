@@ -9,18 +9,18 @@ export class ManageComponent implements OnInit {
 
   constructor() { }
 
-  inputFirstThreshold: number; //si deve fare per tutti e 6 
+  
+  inputFirstThreshold!: number; //si deve fare per tutti e 6 
 
-  inputFourthThreshold: number;
+  inputFourthThreshold!: number;
 
-  radioButton1: string;
-  radioButton2: string;
+  radioButton1!: string;
+  radioButton2!: string;
+
 
   ngOnInit(): void {
-
   }
 
- 
   onSubmit(){
     if(this.inputFirstThreshold != undefined)
       console.log(this.inputFirstThreshold);
@@ -29,5 +29,5 @@ export class ManageComponent implements OnInit {
     if(this.radioButton2 != undefined)  
       console.log(this.radioButton2);
     }
-    
-  }
+
+}

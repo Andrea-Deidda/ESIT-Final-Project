@@ -13,9 +13,6 @@
     margin-left: 1%;
 }
 
-#border{
-    margin-right: 10%;
-}
 
 .firstThreshold{
     margin-bottom: 10%;
@@ -24,4 +21,8 @@
 #btn{
     margin-bottom: 5%;
     margin-left: 5%;
+}
+#btn2{
+    margin-bottom: 5%;
+    margin-left: 2%;
 }

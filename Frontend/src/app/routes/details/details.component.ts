@@ -10,20 +10,22 @@ import { DeviceData } from '../../models/data.model';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private deviceService: DeviceService) { }
+  constructor(private route: ActivatedRoute, private deviceService: DeviceService ) { }
 
-  dataEntry: DeviceData
-  deviceId: string
+  dataEntry!: DeviceData;
+  deviceId!: string
 
   ngOnInit(): void {
     this.deviceId = this.route.snapshot.params['deviceId'];
     this.fetchEntry();
   }
 
+  
   fetchEntry(){
     this.deviceService.getDeviceById(this.deviceId).subscribe( (res: any ) => {
       this.dataEntry = res;
     })
   }
+
 
 }

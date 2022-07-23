@@ -3,19 +3,27 @@
 <div *ngIf="dataEntry != null " class="container">
 
     <div class="row p-4 my-2 mx-1 border shadow">
-        <button class="btn btn-primary mr-5"[routerLink]="['/dashboard']">Back</button>
         <h3>Details</h3>
+        <button id="btn" class="btn btn-primary"[routerLink]="['/dashboard']">Back</button>
     </div>
-    <img class="hd" src="https://thumbs.dreamstime.com/b/wifi-e-simboli-del-bluetooth-24381656.jpg">
 
-    <div class="mt-5 p-4">
-        <ul class="list-group">
-            <li class="list-group-item">Name : {{ dataEntry.device }}</li>
-            <li class="list-group-item">Distance : {{dataEntry.distance}}</li>
-            <li class="list-group-item">Protocollo: {{dataEntry.protocollo}}</li>
-            <li class="list-group-item">Address : {{dataEntry.address}}</li>
-            <li class="list-group-item">Data rilevamento : {{dataEntry.deviceId}}</li>
-
-          </ul>
-    </div>
+    <form class="row">
+        <div class="col-md-3">
+            <img class="hd" 
+            src="https://thumbs.dreamstime.com/b/wifi-e-simboli-del-bluetooth-24381656.jpg"
+            alt="=Image" height="300" width="300">
+        </div>       
+    
+        <div class="col-md-7">
+            <div class="mt-1 p-4">
+            <ul class="list-group">
+              <li class="list-group-item">Name : {{ dataEntry.device }}</li>
+              <li class="list-group-item">Distance : {{dataEntry.distance}}</li>
+              <li class="list-group-item">Protocollo : {{dataEntry.protocollo}}</li>
+              <li class="list-group-item">Address : {{dataEntry.address}}</li>
+              <li class="list-group-item">Data rilevamento : {{dataEntry.deviceId}}</li>
+            </ul>
+         </div>
+        </div>
+    </form>
 </div>
