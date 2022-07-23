@@ -31,7 +31,8 @@ L’interfaccia web di amministrazione permetterà:
 
 	2) la modifica delle soglie di distanza associate a ogni stato; 
 
-	3) la modifica del protocollo di comunicazione usato per rilevare il valore di RSSI (ovvero la scelta tra WiFi e BLE).
+	3) la modifica del protocollo di comunicazione usato per rilevare il valore di RSSI 
+	   (ovvero la scelta tra WiFi e BLE).
 
 
 Il sistema dovrà opportunamente segnalare ai due utenti a rischio quando lo stato del sistema segnala un
