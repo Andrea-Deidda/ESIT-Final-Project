@@ -1,0 +1,4 @@
+
+Arduino/esp32/secrets.h
+Backend/private.pem.key
+Backend/certificate.pem.crt

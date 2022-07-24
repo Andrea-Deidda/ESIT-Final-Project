@@ -14,6 +14,8 @@
 // The MQTT topics that this device should publish/subscribe
 #define AWS_IOT_PUBLISH_TOPIC   "esp32/pub"
 #define AWS_IOT_SUBSCRIBE_TOPIC "esp32/sub"
+#define AWS_IOT_PUBLISH_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get"
+#define AWS_IOT_SUBSCRIBE_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get/accepted"
 
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
@@ -28,7 +30,7 @@ String nome_rete;
 String distanza_rete;
 String address_ble;
 String address_wifi;
-String scelta = "wifi";
+String scelta = "ble";
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
@@ -85,6 +87,7 @@ void connectAWS()
 
   // Subscribe to a topic
   client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
+  client.subscribe("$aws/things/esit-obj1/shadow/get");
 
   Serial.println("AWS IoT Connected!");
 }
@@ -135,12 +138,13 @@ void publishMessage()
   doc["deviceId"] = timeStamp; 
   doc["device"] = device_name;
   doc["distance"] = distance;
-  doc["protocollo"] = "BLE";
+  doc["protocollo"] = "ble";
   doc["address"] = address_ble;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+  //client.publish("$aws/things/esit-obj1/shadow/get/accepted", jsonBuffer);
 }
 
 void publishMessageWifi()
@@ -150,20 +154,25 @@ void publishMessageWifi()
   doc["deviceId"] = timeStamp; 
   doc["device"] = nome_rete;
   doc["distance"] = distanza_rete;
-  doc["protocollo"] = "Wifi";
+  doc["protocollo"] = "wifi";
   doc["address"] = address_wifi;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+  //client.publish("$aws/things/esit-obj1/shadow/get/accepted", jsonBuffer);
 }
 
 void messageHandler(String &topic, String &payload) {
-  Serial.println("incoming: " + topic + " - " + payload);
-
-//  StaticJsonDocument<200> doc;
-//  deserializeJson(doc, payload);
-//  const char* message = doc["message"];
+  Serial.print("incoming: ");
+  //Serial.println(topic);
+  Serial.println(payload);
+ 
+  StaticJsonDocument<200> doc;
+  deserializeJson(doc, payload);
+  const char* message = doc["state"]["desired"]["protocollo"];
+  scelta = String(message);
+  Serial.println(message);
 }
 
 void setup() {
@@ -232,6 +241,8 @@ void WifiScan(){
   }
 
 void loop() {
+    
+  client.loop();
 
   if (scelta == "ble")
     BLEScan();

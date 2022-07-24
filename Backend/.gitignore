@@ -3,3 +3,6 @@
 
 .env
 package-lock.json
+AmazonRootCA1.pem
+certificate.pem.crt
+private.pem.key
