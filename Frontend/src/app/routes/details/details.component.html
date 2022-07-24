@@ -1,5 +1,5 @@
 
-
+<div *ngIf="deviceDataLoader">
 <div *ngIf="dataEntry != null " class="container">
 
     <div class="row p-4 my-2 mx-1 border shadow">
@@ -27,3 +27,5 @@
         </div>
     </form>
 </div>
+</div>
+<app-loading *ngIf="!deviceDataLoader"></app-loading>

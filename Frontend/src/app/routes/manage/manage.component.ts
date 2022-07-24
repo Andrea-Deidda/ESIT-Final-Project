@@ -1,4 +1,6 @@
+import { NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-manage',
@@ -28,6 +30,11 @@ export class ManageComponent implements OnInit {
       console.log(this.radioButton1);
     if(this.radioButton2 != undefined)  
       console.log(this.radioButton2);
+      window.alert("Options submitted"); //messaggio che informa l'utente dell'avenuto cambiamento
     }
+    
 
+    reloadPage() {
+      window.location.reload();
+    }
 }

@@ -1,23 +1,24 @@
 const awsIot = require('aws-iot-device-sdk');
+require('dotenv/config')
 
 const device = awsIot.device({
-    host: 'a2sgc0kgj151w0-ats.iot.us-east-1.amazonaws.com',
+    host: process.env.AWS_HOST,
     port: 8883,
     keyPath: './private.pem.key',
     certPath: './certificate.pem.crt',
     caPath: './AmazonRootCA1.pem',
 });
 
-const topic = "$aws/things/esit-obj1/shadow/get/accepted"
+const topic = "$aws/things/esit-obj1/shadow/get"
 
 function sendData(){
     const message = {
         state: {
             desired: {
-                protocollo: "ble"
+                protocollo: "wifi"
             },
             reported: {
-                protocollo: "ble"
+                protocollo: "wifi"
             }
         }
     };

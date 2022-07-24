@@ -95,7 +95,7 @@
         </th>
         </tr>
     </table>
-    <button id="btn" type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
+    <button id="btn" type="submit" (click)="reloadPage()" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
     <button id="btn2" class="btn btn-primary"[routerLink]="['/dashboard']">Back</button>
 
 <form>

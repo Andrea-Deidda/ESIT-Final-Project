@@ -20,7 +20,9 @@
       </tr>
     </thead>
     <tbody *ngIf="deviceDataLoader">
-      <tr class="pointer" *ngFor="let entry of devices | orderBy: key: reverse | paginate: {itemsPerPage:15,currentPage:p} ; let i = index" (click)="goToDetails(entry.deviceId)">
+      <tr class="pointer" *ngFor="let entry of devices | orderBy: key: reverse 
+                             | paginate: {itemsPerPage:10,currentPage:p} ; 
+                             let i = index" (click)="goToDetails(entry.deviceId)">
         <th scope="row"> {{i + 1}}</th>
         <td>{{entry.device}}</td>
         <td>{{entry.distance}}</td>
