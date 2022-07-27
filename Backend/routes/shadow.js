@@ -3,7 +3,7 @@ const router = express.Router();
 const AWS = require('aws-sdk');
 const {response} = require('express');
 require('dotenv').config();
-const shadow_endpoint = 'a3umb0ax28oeql-ats.iot.us-east-1.amazonaws.com';
+const shadow_endpoint = process.env.AWS_HOST;
 const OBJ_THING = 'esit-obj1';
 //const SHADOW_THING = 'esit_termal_quality_shadow';
 
