@@ -14,12 +14,20 @@
 // The MQTT topics that this device should publish/subscribe
 #define AWS_IOT_PUBLISH_TOPIC   "esp32/pub"
 #define AWS_IOT_SUBSCRIBE_TOPIC "esp32/sub"
-#define AWS_IOT_PUBLISH_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get"
-#define AWS_IOT_SUBSCRIBE_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get/accepted"
+
+#define AWS_IOT_PUBLISH_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/update"
+#define AWS_IOT_SUBSCRIBE_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/update/delta"
+
+//#define AWS_IOT_PUBLISH_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get"
+//#define AWS_IOT_SUBSCRIBE_SHADOW_TOPIC "$aws/things/esit-obj1/shadow/get/accepted"
+
 
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
 const int   daylightOffset_sec = 3600;
+
+String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"WIFI\" } }}";
+String sndPayloadBLE = "{\"state\": { \"reported\": { \"protocollo\": \"BLE\" } }}";
 
 int scanTime = 5; //In seconds
 BLEScan* pBLEScan;
@@ -30,7 +38,9 @@ String nome_rete;
 String distanza_rete;
 String address_ble;
 String address_wifi;
-String scelta = "ble";
+String scelta = "BLE";
+String rcvdPayload;
+bool msgReceived = false;
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
@@ -87,7 +97,7 @@ void connectAWS()
 
   // Subscribe to a topic
   client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
-  client.subscribe("$aws/things/esit-obj1/shadow/get");
+  client.subscribe(AWS_IOT_SUBSCRIBE_SHADOW_TOPIC);
 
   Serial.println("AWS IoT Connected!");
 }
@@ -138,7 +148,7 @@ void publishMessage()
   doc["deviceId"] = timeStamp; 
   doc["device"] = device_name;
   doc["distance"] = distance;
-  doc["protocollo"] = "ble";
+  doc["protocollo"] = "BLE";
   doc["address"] = address_ble;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
@@ -154,25 +164,25 @@ void publishMessageWifi()
   doc["deviceId"] = timeStamp; 
   doc["device"] = nome_rete;
   doc["distance"] = distanza_rete;
-  doc["protocollo"] = "wifi";
+  doc["protocollo"] = "WIFI";
   doc["address"] = address_wifi;
   char jsonBuffer[512];
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
-  //client.publish("$aws/things/esit-obj1/shadow/get/accepted", jsonBuffer);
+
 }
 
 void messageHandler(String &topic, String &payload) {
-  Serial.print("incoming: ");
-  //Serial.println(topic);
-  Serial.println(payload);
- 
-  StaticJsonDocument<200> doc;
-  deserializeJson(doc, payload);
-  const char* message = doc["state"]["desired"]["protocollo"];
-  scelta = String(message);
-  Serial.println(message);
+  msgReceived = true;
+  rcvdPayload = payload;
+  
+  //StaticJsonDocument<200> doc;
+  //deserializeJson(doc, payload);
+  //const char* message = doc["state"]["protocollo"];
+  //scelta = String(message);
+  //Serial.println(message);
+  //inviato = false;
 }
 
 void setup() {
@@ -189,6 +199,11 @@ void setup() {
   // Init and get the time
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   printLocalTime();
+
+  //sprintf(sndPayloadBLE,"{\"state\": { \"reported\": { \"protocollo\": \"BLE\" } }}");
+  //sprintf(sndPayloadWIFI,"{\"state\": { \"reported\": { \"protocollo\": \"WIFI\" } }}");
+
+  client.publish(AWS_IOT_PUBLISH_SHADOW_TOPIC, sndPayloadBLE);
   
 }
 
@@ -242,12 +257,53 @@ void WifiScan(){
 
 void loop() {
     
-  client.loop();
+    Serial.print("Max Allocable Heap size: ");
+    Serial.println(ESP.getMaxAllocHeap());
+    Serial.print("Free Heap space: ");
+    Serial.println(ESP.getFreeHeap());
 
-  if (scelta == "ble")
+  if(msgReceived){
+    delay(100);
+    msgReceived = false;
+    Serial.print("Received Message:");
+    Serial.println(rcvdPayload);
+      
+      /*
+      StaticJsonDocument<200> doc;
+      deserializeJson(doc, rcvdPayload);
+      const char* message = doc["state"]["protocollo"];
+      scelta = String(message);
+      Serial.println(message);
+      */
+
+      StaticJsonDocument<200> doc;
+      deserializeJson(doc, rcvdPayload);
+      const char *message = doc["state"]["protocollo"];
+      scelta = String(message);
+      Serial.println(message);
+      
+      if(scelta == "BLE"){
+         Serial.println("IF CONDITION");
+         Serial.println("Turning BLE");
+         client.publish(AWS_IOT_PUBLISH_SHADOW_TOPIC, sndPayloadBLE);
+        }
+        
+       else 
+        {
+         Serial.println("ELSE CONDITION");
+         Serial.println("Turning WIFI");
+         client.publish(AWS_IOT_PUBLISH_SHADOW_TOPIC, sndPayloadWIFI);
+       
+    }
+  }
+
+  Serial.println(msgReceived);
+  if (scelta == "BLE")
     BLEScan();
-    
-  if (scelta == "wifi")
-    WifiScan();
   
+       
+  if (scelta == "WIFI")
+    WifiScan();
+
+  client.loop();
 }
