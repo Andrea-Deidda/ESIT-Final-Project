@@ -21,9 +21,13 @@ Il valore di RSSI deve essere convertito in cm e, in base alla distanza ottenuta
   seguenti stati:
 
 ○ sicuro (>10 m)
+
 ○ livello di rischio basso (<= 10 m && >= 3m)
+
 ○ livello di rischio medio (>= 1m && < 3m)
+
 ○ livello di rischio alto (<1 m)
+
 
 L’interfaccia web di amministrazione permetterà: 
 
