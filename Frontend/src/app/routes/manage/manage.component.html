@@ -1,7 +1,7 @@
 
 <div class="row p-4 my-2 mx-1 border shadow">
-    <h3>Manage board
-    </h3>
+    <h2>Manage board</h2>
+    <h4>Currently detection is: via {{status}}</h4>
 </div>
 
 <form class="pt-5" (ngSubmit)="onSubmit()" #form="ngForm">
@@ -9,21 +9,21 @@
     <tr>
         <th>
             <div class="protocol">  
-                <h4>Protocol:</h4>
+                <h4>Select Protocol</h4>
                 <div id="radioButton" class="form-check">
                 <input type="radio" class="form-check-input" id="radioButton1" name="radioButton" value="wifi" checked
-                [(ngModel)]="radioButton1">Wi-Fi
+                [(ngModel)]="radioButton">Wi-Fi
                 <label class="form-check-label" for="radio1"></label>
               </div>
               <div id="radioButton" class="form-check">
                 <input type="radio" class="form-check-input" id="radioButton2" name="radioButton" value="ble" checked
-                [(ngModel)]="radioButton2">Bluetooth
+                [(ngModel)]="radioButton">Bluetooth
                 <label class="form-check-label" for="radio2"></label>
               </div>
             </div>
         
             <div class="protocol">
-                <h4 >Select Thresholds :</h4>
+                <h4 >Select Thresholds</h4>
         
         
             <div class="firstThreshold">
@@ -99,3 +99,5 @@
     <button id="btn2" class="btn btn-primary"[routerLink]="['/dashboard']">Back</button>
 
 <form>
+
+    <!--(click)="reloadPage()"-->
