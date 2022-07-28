@@ -26,8 +26,8 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
 const int   daylightOffset_sec = 3600;
 
-String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"WIFI\" } }}";
-String sndPayloadBLE = "{\"state\": { \"reported\": { \"protocollo\": \"BLE\" } }}";
+String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"wifi\" } }}";
+String sndPayloadBLE = "{\"state\": { \"reported\": { \"protocollo\": \"ble\" } }}";
 
 int scanTime = 5; //In seconds
 BLEScan* pBLEScan;
@@ -38,7 +38,7 @@ String nome_rete;
 String distanza_rete;
 String address_ble;
 String address_wifi;
-String scelta = "BLE";
+String scelta = "ble";
 String rcvdPayload;
 bool msgReceived = false;
 
@@ -154,7 +154,6 @@ void publishMessage()
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
-  //client.publish("$aws/things/esit-obj1/shadow/get/accepted", jsonBuffer);
 }
 
 void publishMessageWifi()
@@ -256,39 +255,26 @@ void WifiScan(){
   }
 
 void loop() {
-    
-    Serial.print("Max Allocable Heap size: ");
-    Serial.println(ESP.getMaxAllocHeap());
-    Serial.print("Free Heap space: ");
-    Serial.println(ESP.getFreeHeap());
 
   if(msgReceived){
     delay(100);
     msgReceived = false;
     Serial.print("Received Message:");
     Serial.println(rcvdPayload);
-      
-      /*
-      StaticJsonDocument<200> doc;
-      deserializeJson(doc, rcvdPayload);
-      const char* message = doc["state"]["protocollo"];
-      scelta = String(message);
-      Serial.println(message);
-      */
 
-      StaticJsonDocument<200> doc;
-      deserializeJson(doc, rcvdPayload);
-      const char *message = doc["state"]["protocollo"];
-      scelta = String(message);
-      Serial.println(message);
+    StaticJsonDocument<200> doc;
+    deserializeJson(doc, rcvdPayload);
+    const char *message = doc["state"]["protocollo"];
+    scelta = String(message);
+    Serial.println(message);
       
-      if(scelta == "BLE"){
+      if(scelta == "ble"){
          Serial.println("IF CONDITION");
          Serial.println("Turning BLE");
          client.publish(AWS_IOT_PUBLISH_SHADOW_TOPIC, sndPayloadBLE);
         }
         
-       else 
+      if(scelta == "wifi") 
         {
          Serial.println("ELSE CONDITION");
          Serial.println("Turning WIFI");
@@ -297,12 +283,12 @@ void loop() {
     }
   }
 
-  Serial.println(msgReceived);
-  if (scelta == "BLE")
+  //Serial.println(msgReceived);
+  if (scelta == "ble")
     BLEScan();
   
        
-  if (scelta == "WIFI")
+  if (scelta == "wifi")
     WifiScan();
 
   client.loop();
