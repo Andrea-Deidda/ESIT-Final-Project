@@ -1,6 +1,6 @@
 .hd{
     margin-left: 10%;
-    margin-top: 10%;
+    margin-top: 40%;
     margin-bottom: 40%;
 }
 
@@ -11,4 +11,8 @@
 .btn{
     width: auto;
     margin-left: 1%;
+}
+
+.col-md-7{
+    margin-top: 10%;
 }

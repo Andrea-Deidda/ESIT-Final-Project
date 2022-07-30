@@ -14,9 +14,10 @@
     <thead class="table-dark" >
       <tr >
         <th scope="col">#</th>
-        <th (click)="sort('name')" scope="col">Device Name&nbsp;<i class="fa fa-sort"> </i></th>
+        <th (click)="sort('deviceId')" scope="col">Date&nbsp;<i class="fa fa-sort"> </i></th>
         <th (click)="sort('distance')" scope="col">Distance&nbsp;<i class="fa fa-sort"> </i></th>
         <th scope="col">Protocol</th>        
+
       </tr>
     </thead>
     <tbody *ngIf="deviceDataLoader">
@@ -24,7 +25,7 @@
                              | paginate: {itemsPerPage:10,currentPage:p} ; 
                              let i = index" (click)="goToDetails(entry.deviceId)">
         <th scope="row"> {{i + 1}}</th>
-        <td>{{entry.device}}</td>
+        <td>{{entry.deviceId}}</td>
         <td>{{entry.distance}}</td>
         <td>{{entry.protocollo}}</td>
 

@@ -15,7 +15,10 @@ export class ManageComponent implements OnInit {
 
   
   inputFirstThreshold!: number; //si deve fare per tutti e 6 
-
+  inputSecondThresholdMin!: number;
+  inputSecondThresholdMax!: number;
+  inputThirdThresholdMin!: number;
+  inputThirdThresholdMax!: number;
   inputFourthThreshold!: number;
 
   radioButton!: string;
@@ -27,8 +30,14 @@ export class ManageComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.inputFirstThreshold != undefined)
-      console.log(this.inputFirstThreshold);
+    if(this.inputFirstThreshold != undefined) 
+    {
+      console.log("sicuro > " + this.inputFirstThreshold);
+      console.log("rischio basso (< " + this.inputSecondThresholdMin + " && > " + this.inputSecondThresholdMax + ")" );
+      console.log("rischio medio (< " + this.inputThirdThresholdMin + " && > " + this.inputThirdThresholdMax + ")" );
+      console.log("alto < " + this.inputFourthThreshold);
+    }
+
     if(this.radioButton != undefined)
       console.log(this.radioButton);
       this.shadowService.setProtocoll(this.radioButton).subscribe(response => {
