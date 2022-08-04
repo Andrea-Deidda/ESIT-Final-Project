@@ -8,7 +8,7 @@
 <table >
     <tr>
         <th>
-            <div class="protocol">  
+            <div class="protocol">
                 <h4>Select Protocol</h4>
                 <div id="radioButton" class="form-check">
                 <input type="radio" class="form-check-input" id="radioButton1" name="radioButton" value="wifi" checked
@@ -21,82 +21,82 @@
                 <label class="form-check-label" for="radio2"></label>
               </div>
             </div>
-        
+
             <div class="protocol">
                 <h4 >Select Thresholds</h4>
-        
-        
+
+
             <div class="firstThreshold">
                 <form class="row">
-                   
-                    <div class="col-md-3">
+
+                    <div class="col-md-6">
                         <label></label>
-                        <h6>First Threshold (safe) </h6>
+                        <h6>Safe level: distance greather than</h6>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label for="inputFirstThreshold" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputFirstThreshold" 
-                        placeholder=">="required
-                        [(ngModel)]="inputFirstThreshold" name="inputFirstThreshold">   <!-- va aggiunto in tutti-->
+                        <input type="number" min="0" class="form-control" id="inputFirstThreshold"
+                               required
+                               [(ngModel)]="inputSafeRiskThreshold" name="inputFirstThreshold">  <!-- va aggiunto in tutti-->
                         </div>
                 </form>
                 <form class="row">
-                   
-                    <div class="col-md-3">
+
+                    <div class="col-md-6">
                         <label></label>
-                        <h6>Second Threshold (low risk) </h6>
+                        <h6>Low risk: distance between than</h6>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label for="inputSecondThresholdMin" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputSecondThresholdMin" 
-                        placeholder="<=" required
-                        [(ngModel)]="inputSecondThresholdMin" name="inputSecondThresholdMin" >
+                        <input type="number" min="0" class="form-control" id="inputSecondThresholdMin"
+                               placeholder= "<=" required
+                               [(ngModel)]="inputLowRiskThresholdMin" name="inputSecondThresholdMin" >
                         </div>
                     <div class="col-md-2">
                         <label for="inputSecondThresholdMax" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputSecondThresholdMax" 
-                        placeholder=">=" required
-                        [(ngModel)]="inputSecondThresholdMax" name="inputSecondThresholdMax">
+                        <input type="number" min="0" class="form-control" id="inputSecondThresholdMax"
+                               placeholder= ">=" required
+                               [(ngModel)]="inputLowRiskThresholdMax" name="inputSecondThresholdMax">
                         </div>
                 </form>
                 <form class="row">
-                   
-                    <div class="col-md-3">
+
+                    <div class="col-md-6">
                         <label></label>
-                        <h6>Third Threshold (medium risk) </h6>
+                        <h6>Medium risk: distance between than</h6>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label for="inputThirdThresholdMin" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputThirdThresholdMin" 
-                        placeholder="<="required
-                        [(ngModel)]="inputThirdThresholdMin" name="inputThirdThresholdMin" >
+                        <input type="number" min="0" class="form-control" id="inputThirdThresholdMin"
+                               placeholder= "<=" required
+                               [(ngModel)]="inputMediumRiskThresholdMin" name="inputThirdThresholdMin" >
                         </div>
                     <div class="col-md-2">
                         <label for="inputThirdThresholdMax" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputThirdThresholdMax" 
-                        placeholder=">="required
-                        [(ngModel)]="inputThirdThresholdMax" name="inputThirdThresholdMax" >
+                        <input type="number" min="0" class="form-control" id="inputThirdThresholdMax"
+                               placeholder= ">=" required
+                               [(ngModel)]="inputMediumRiskThresholdMax" name="inputThirdThresholdMax" >
                         </div>
                 </form>
 
                 <form class="row">
-                   
-                    <div class="col-md-3">
+
+                    <div class="col-md-6">
                         <label></label>
-                        <h6>fourth Threshold (high risk) </h6>
+                        <h6>High risk: distance less than</h6>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label for="inputFourthThreshold" class="form-label"></label>
-                        <input type="number" class="form-control" id="inputFourthThreshold" 
-                        placeholder= "<=" required
-                        [(ngModel)]="inputFourthThreshold" name="inputFourthThreshold">  
+                        <input type="number" min="0" class="form-control" id="inputFourthThreshold"
+                               placeholder= "<=" required
+                               [(ngModel)]="inputHighRiskThreshold" name="inputFourthThreshold">
                         </div>
                 </form>
-            
+
             </div>
             </div>
         </th>
