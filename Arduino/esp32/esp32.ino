@@ -4,6 +4,7 @@
 #include <ArduinoJson.h>
 #include "WiFi.h"
 #include "time.h"
+#include <LiquidCrystal_I2C.h>
 
 #include <BLEDevice.h>
 #include <BLEUtils.h>
@@ -20,6 +21,13 @@
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
 const int   daylightOffset_sec = 3600;
+
+// set the LCD number of columns and rows
+int lcdColumns = 16;
+int lcdRows = 2;
+
+// set LCD address, number of columns and rows
+LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); // 0x27 è stato preso con I2C scanner
 
 const int LED1 = 5;
 
@@ -59,6 +67,10 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       liv_rischio = livelloRischio(distance);
+
+      
+      lcd.setCursor(0, 0);
+      lcd.print(liv_rischio);
 
       Serial.print(F("Device: "));
       Serial.print(device_name);
@@ -199,6 +211,11 @@ void messageHandler(String &topic, String &payload) {
 void setup() {
 
   pinMode(LED1, OUTPUT);
+
+  // initialize LCD
+  lcd.init();
+  // turn on LCD backlight                      
+  lcd.backlight();
   
   Serial.begin(115200);
   connectAWS();
@@ -237,6 +254,7 @@ void BLEScan() {
   client.loop();
   //pBLEScan->clearResults();   // delete results fromBLEScan buffer to release memory
   delay(5000);
+  lcd.clear();
 
 }
 
@@ -261,18 +279,21 @@ void WifiScan() {
       address_wifi = WiFi.macAddress();
 
       liv_rischio = livelloRischio(distanza_rete);
-
+      
       Serial.print(WiFi.SSID(i));
       Serial.printf(" distanza: %.2f m: %s\n", distanza_rete, liv_rischio);
       delay(10);
       publishMessageWifi();
+
+      lcd.setCursor(0, 0);
+      lcd.print(liv_rischio);
     }
   }
   Serial.println("");
 
   // Wait a bit before scanning again
   delay(5000);
-
+  lcd.clear();
 }
 
 String livelloRischio(float misura) {
