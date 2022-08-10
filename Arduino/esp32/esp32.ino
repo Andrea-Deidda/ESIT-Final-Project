@@ -21,6 +21,8 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 0;
 const int   daylightOffset_sec = 3600;
 
+const int LED1 = 5;
+
 String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"wifi-10-3-10-1-3-1\" } }}";
 String sndPayloadBLE = "{\"state\": { \"reported\": { \"protocollo\": \"ble-10-3-10-1-3-1\" } }}";
 
@@ -93,11 +95,13 @@ void connectAWS()
   Serial.print("Connecting to AWS IOT");
 
   while (!client.connect(THINGNAME)) {
+    digitalWrite(LED1, LOW);
     Serial.print(".");
     delay(100);
   }
 
   if (!client.connected()) {
+    digitalWrite(LED1, LOW);
     Serial.println("AWS IoT Timeout!");
     return;
   }
@@ -107,6 +111,7 @@ void connectAWS()
   client.subscribe(AWS_IOT_SUBSCRIBE_SHADOW_TOPIC);
 
   Serial.println("AWS IoT Connected!");
+  digitalWrite(LED1, HIGH);
 }
 
 //funzione che restituisce un timestamp univoco per creare un ID per il messaggio MQTT
@@ -192,6 +197,9 @@ void messageHandler(String &topic, String &payload) {
 }
 
 void setup() {
+
+  pinMode(LED1, OUTPUT);
+  
   Serial.begin(115200);
   connectAWS();
 
