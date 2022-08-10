@@ -63,7 +63,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       device_name = advertisedDevice.getName().c_str();
       address_ble = advertisedDevice.getAddress().toString().c_str();
       if (device_name == "")
-        device_name = "Dispositivo sconosciuto";
+        device_name = "UNKNOWN";
 
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       liv_rischio = livelloRischio(distance);
@@ -71,6 +71,8 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       
       lcd.setCursor(0, 0);
       lcd.print(liv_rischio);
+      lcd.setCursor(0, 1);
+      lcd.print(device_name);
 
       Serial.print(F("Device: "));
       Serial.print(device_name);
