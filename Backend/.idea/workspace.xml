@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dc47b27-cd08-4e91-8e77-f5d79fcfc131" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Arduino/esp32/esp32.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../Arduino/esp32/esp32.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/devices.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/devices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/shadow.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shadow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/routes/manage/manage.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/routes/manage/manage.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/routes/manage/manage.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/routes/manage/manage.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/component/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/component/footer/footer.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +75,7 @@
       <workItem from="1659093519381" duration="164000" />
       <workItem from="1659427289446" duration="16922000" />
       <workItem from="1659611056814" duration="4224000" />
+      <workItem from="1660857242952" duration="922000" />
     </task>
     <servers />
   </component>
