@@ -30,6 +30,7 @@ int lcdRows = 2;
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); // 0x27 è stato preso con I2C scanner
 
 const int LED1 = 5;
+const int buzzer = 23;
 
 String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"wifi-10-3-10-1-3-1\" } }}";
 String sndPayloadBLE = "{\"state\": { \"reported\": { \"protocollo\": \"ble-10-3-10-1-3-1\" } }}";
@@ -68,7 +69,6 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       liv_rischio = livelloRischio(distance);
 
-      
       lcd.setCursor(0, 0);
       lcd.print(liv_rischio);
       lcd.setCursor(0, 1);
@@ -77,6 +77,18 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       Serial.print(F("Device: "));
       Serial.print(device_name);
       Serial.printf(" distanza: %.2f m: %s\n", distance, liv_rischio);
+
+      if (liv_rischio == "RISCHIO MEDIO") {
+        digitalWrite(buzzer, HIGH);
+        delay(1000);
+        digitalWrite(buzzer, LOW);
+        delay(1000);
+      } else {
+        if(liv_rischio == "RISCHIO ALTO") 
+          digitalWrite(buzzer, HIGH);        
+          else
+          digitalWrite(buzzer, LOW); 
+      }
     }
 };
 
@@ -213,6 +225,7 @@ void messageHandler(String &topic, String &payload) {
 void setup() {
 
   pinMode(LED1, OUTPUT);
+  pinMode(buzzer, OUTPUT);
 
   // initialize LCD
   lcd.init();
@@ -289,6 +302,18 @@ void WifiScan() {
 
       lcd.setCursor(0, 0);
       lcd.print(liv_rischio);
+
+      if (liv_rischio == "RISCHIO MEDIO") {
+        digitalWrite(buzzer, HIGH);
+        delay(1000);
+        digitalWrite(buzzer, LOW);
+        delay(1000);
+      } else {
+        if(liv_rischio == "RISCHIO ALTO") 
+          digitalWrite(buzzer, HIGH);        
+          else
+          digitalWrite(buzzer, LOW); 
+      }
     }
   }
   Serial.println("");
@@ -300,13 +325,6 @@ void WifiScan() {
 
 String livelloRischio(float misura) {
   String rischio = "";
-
-  //Serial.println(inputSafeRiskThreshold.toFloat());
-  //Serial.println(inputLowRiskThresholdMin.toFloat());
-  //Serial.println(inputLowRiskThresholdMax.toFloat());
-  //Serial.println(inputMediumRiskThresholdMin.toFloat());
-  //Serial.println(inputMediumRiskThresholdMax.toFloat());
-  //Serial.println(inputHighRiskThreshold.toFloat());
 
   if (misura > inputSafeRiskThreshold.toFloat())
     rischio = "SICURO";
