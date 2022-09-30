@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   p: number =1;
   protocollo: any;
+  device: any;
 
   constructor(private deviceService: DeviceService, private router: Router) { }
 
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  Search(){
+  SearchDeviceName(){
     if(this.protocollo ==""){
       this.ngOnInit();
     } else{

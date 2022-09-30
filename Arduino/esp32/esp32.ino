@@ -69,25 +69,34 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
       liv_rischio = livelloRischio(distance);
 
-      lcd.setCursor(0, 0);
-      lcd.print(liv_rischio);
-      lcd.setCursor(0, 1);
-      lcd.print(device_name);
-
       Serial.print(F("Device: "));
       Serial.print(device_name);
       Serial.printf(" distanza: %.2f m: %s\n", distance, liv_rischio);
 
-      if (liv_rischio == "RISCHIO MEDIO") {
-        digitalWrite(buzzer, HIGH);
-        delay(1000);
-        digitalWrite(buzzer, LOW);
-        delay(1000);
-      } else {
-        if(liv_rischio == "RISCHIO ALTO") 
-          digitalWrite(buzzer, HIGH);        
-          else
-          digitalWrite(buzzer, LOW); 
+      if (device_name == "HONOR Band 5-412") {
+        lcd.setCursor(0, 0);
+        lcd.print(liv_rischio);
+        lcd.setCursor(0, 1);
+        lcd.print(device_name);
+        if (liv_rischio == "RISCHIO MEDIO") {
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+        } else {
+          if(liv_rischio == "RISCHIO ALTO") 
+            digitalWrite(buzzer, HIGH);        
+            else
+            digitalWrite(buzzer, LOW); 
+        }
       }
     }
 };
@@ -213,13 +222,6 @@ void publishMessageWifi()
 void messageHandler(String &topic, String &payload) {
   msgReceived = true;
   rcvdPayload = payload;
-
-  //StaticJsonDocument<200> doc;
-  //deserializeJson(doc, payload);
-  //const char* message = doc["state"]["protocollo"];
-  //scelta = String(message);
-  //Serial.println(message);
-  //inviato = false;
 }
 
 void setup() {
@@ -294,25 +296,39 @@ void WifiScan() {
       address_wifi = WiFi.macAddress();
 
       liv_rischio = livelloRischio(distanza_rete);
-      
+
       Serial.print(WiFi.SSID(i));
       Serial.printf(" distanza: %.2f m: %s\n", distanza_rete, liv_rischio);
       delay(10);
       publishMessageWifi();
 
-      lcd.setCursor(0, 0);
-      lcd.print(liv_rischio);
+      //lcd.setCursor(0, 0);
+      //lcd.print(liv_rischio);
 
-      if (liv_rischio == "RISCHIO MEDIO") {
-        digitalWrite(buzzer, HIGH);
-        delay(1000);
-        digitalWrite(buzzer, LOW);
-        delay(1000);
-      } else {
-        if(liv_rischio == "RISCHIO ALTO") 
-          digitalWrite(buzzer, HIGH);        
-          else
-          digitalWrite(buzzer, LOW); 
+      if (nome_rete == "Galaxy A512646") {
+        lcd.setCursor(0, 0);
+        lcd.print(liv_rischio);
+        lcd.setCursor(0, 1);
+        lcd.print(nome_rete);
+        if (liv_rischio == "RISCHIO MEDIO") {
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+          digitalWrite(buzzer, HIGH);
+          delay(1000);
+          digitalWrite(buzzer, LOW);
+          delay(1000);
+        } else {
+          if(liv_rischio == "RISCHIO ALTO") 
+            digitalWrite(buzzer, HIGH);        
+            else
+            digitalWrite(buzzer, LOW); 
+        }
       }
     }
   }

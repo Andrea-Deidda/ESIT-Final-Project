@@ -5,37 +5,37 @@
   </h1>
 
   <nav class ="navbar">
-    <input class="form-control" type="text" name="protocollo" [(ngModel)] = "protocollo" (ngModelChange)="Search()"
-    placeholder="Enter protocol to search">
+    <input class="form-control" type="text" name="device" [(ngModel)] = "device" (ngModelChange)="SearchDeviceName()"
+           placeholder="Enter Device Name to search">
   </nav>
 
   <table class="table">
 
     <thead class="table-dark" >
-      <tr >
-        <th scope="col">#</th>
-        <th (click)="sort('deviceId')" scope="col">Date&nbsp;<i class="fa fa-sort"> </i></th>
-        <th (click)="sort('distance')" scope="col">Distance&nbsp;<i class="fa fa-sort"> </i></th>
-        <th scope="col">Protocol</th>        
+    <tr >
+      <th scope="col">#</th>
+      <th (click)="sort('deviceId')" scope="col">Date&nbsp;<i class="fa fa-sort"> </i></th>
+      <th (click)="sort('device')" scope="col">Name&nbsp;<i class="fa fa-sort"> </i></th>
+      <th (click)="sort('distance')" scope="col">Distance&nbsp;<i class="fa fa-sort"> </i></th>
+      <th scope="col">Protocol</th>
 
-      </tr>
+    </tr>
     </thead>
     <tbody *ngIf="deviceDataLoader">
-      <tr class="pointer" *ngFor="let entry of devices | orderBy: key: reverse 
-                             | paginate: {itemsPerPage:10,currentPage:p} ; 
+    <tr class="pointer" *ngFor="let entry of devices | orderBy: key: reverse
+                             | paginate: {itemsPerPage:10,currentPage:p} ;
                              let i = index" (click)="goToDetails(entry.deviceId)">
-        <th scope="row"> {{i + 1}}</th>
-        <td>{{entry.deviceId}}</td>
-        <td>{{entry.distance}}</td>
-        <td>{{entry.protocollo}}</td>
+      <th scope="row"> {{i + 1}}</th>
+      <td>{{entry.deviceId}}</td>
+      <td>{{entry.device}}</td>
+      <td>{{entry.distance}}</td>
+      <td>{{entry.protocollo}}</td>
 
-      </tr>
+    </tr>
     </tbody>
-    
+
   </table>
   <pagination-controls (pageChange)="p = $event" ></pagination-controls>
 </div>
 
-  <app-loading *ngIf="!deviceDataLoader"></app-loading>
-
-
+<app-loading *ngIf="!deviceDataLoader"></app-loading>
