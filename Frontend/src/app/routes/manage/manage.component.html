@@ -1,9 +1,10 @@
-
-<div class="row p-4 my-2 mx-1 border shadow">
-    <h2>Manage board</h2>
-    <h4>Currently detection is: via {{status}}</h4>
+<div class="container"> 
+    <div class="row p-4 my-2 mx-1 border shadow">
+        <h2>Manage board</h2>
+        <h4>Currently detection is: via {{status}}</h4>
+    </div>
 </div>
-
+<div class="container"> 
 <form class="pt-5" (ngSubmit)="onSubmit()" #form="ngForm">
 <table >
     <tr>
@@ -101,13 +102,13 @@
             </div>
         </th>
         <th>
-            <img class="hd" src="https://image.shutterstock.com/image-vector/cogwheel-gear-mechanism-vector-settings-260nw-226269949.jpg">
+            <img class="hd" src="../../../assets/img/ingranaggi.png">
         </th>
         </tr>
     </table>
     <button id="btn" type="submit" (click)="reloadPage()" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
     <button id="btn2" class="btn btn-primary"[routerLink]="['/dashboard']">Back</button>
 
-<form>
-
-    <!--(click)="reloadPage()"-->
+    <form>
+    
+    

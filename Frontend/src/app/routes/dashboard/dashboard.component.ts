@@ -45,11 +45,11 @@ export class DashboardComponent implements OnInit {
   }
 
   SearchDeviceName(){
-    if(this.protocollo ==""){
+    if(this.device ==""){
       this.ngOnInit();
     } else{
       this.devices = this.devices.filter(res =>{
-        return res.protocollo.toLocaleLowerCase().match(this.protocollo.toLocaleLowerCase());
+        return res.device.toLocaleLowerCase().match(this.device.toLocaleLowerCase());
       })
     }
   }
