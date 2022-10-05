@@ -288,7 +288,7 @@ void WifiScan() {
     Serial.print(n);
     Serial.println(" networks found");
     for (int i = 0; i < n; ++i) {
-      // Print SSID and RSSI for each network found
+
       Serial.print(i + 1);
       Serial.print(": ");
       nome_rete = WiFi.SSID(i);
@@ -300,10 +300,7 @@ void WifiScan() {
       Serial.print(WiFi.SSID(i));
       Serial.printf(" distanza: %.2f m: %s\n", distanza_rete, liv_rischio);
       delay(10);
-      //publishMessageWifi();
-
-      //lcd.setCursor(0, 0);
-      //lcd.print(liv_rischio);
+      publishMessageWifi();
 
       if (nome_rete == "Galaxy A512646") {
         lcd.setCursor(0, 0);
@@ -335,7 +332,7 @@ void WifiScan() {
   Serial.println("");
 
   // Wait a bit before scanning again
-  delay(5000);
+  delay(10000);
   lcd.clear();
 }
 
