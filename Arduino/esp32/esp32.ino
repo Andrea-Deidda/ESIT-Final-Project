@@ -166,7 +166,7 @@ String printLocalTime() {
   String timeYearString(timeYear);
 
   char timeMonth[10];
-  strftime(timeMonth, 10, "%B", &timeinfo);
+  strftime(timeMonth, 10, "%m", &timeinfo);
   String timeMonthString(timeMonth);
 
   char timeDay[3];
@@ -292,7 +292,7 @@ void WifiScan() {
       Serial.print(i + 1);
       Serial.print(": ");
       nome_rete = WiFi.SSID(i);
-      distanza_rete = pow(10, ((-72.0 - WiFi.RSSI(i)) / 20.0));
+      distanza_rete = pow(10, ((-55.0 - WiFi.RSSI(i)) / 20.0));
       address_wifi = WiFi.macAddress();
 
       liv_rischio = livelloRischio(distanza_rete);
@@ -300,7 +300,7 @@ void WifiScan() {
       Serial.print(WiFi.SSID(i));
       Serial.printf(" distanza: %.2f m: %s\n", distanza_rete, liv_rischio);
       delay(10);
-      publishMessageWifi();
+      //publishMessageWifi();
 
       //lcd.setCursor(0, 0);
       //lcd.print(liv_rischio);
