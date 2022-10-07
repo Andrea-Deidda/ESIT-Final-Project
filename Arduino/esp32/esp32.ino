@@ -66,7 +66,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       if (device_name == "")
         device_name = "UNKNOWN";
 
-      distance = pow(10, ((-72.0 - advertisedDevice.getRSSI()) / 20.0));
+      distance = pow(10, ((-55.0 - advertisedDevice.getRSSI()) / 20.0));
       liv_rischio = livelloRischio(distance);
 
       Serial.print(F("Device: "));
@@ -270,7 +270,7 @@ void BLEScan() {
   Serial.println("");
   client.loop();
   //pBLEScan->clearResults();   // delete results fromBLEScan buffer to release memory
-  delay(5000);
+  delay(10000);
   lcd.clear();
 
 }
