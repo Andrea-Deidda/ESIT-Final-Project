@@ -26,6 +26,8 @@ const int   daylightOffset_sec = 3600;
 int lcdColumns = 16;
 int lcdRows = 2;
 
+void publishMessage();
+
 // set LCD address, number of columns and rows
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); // 0x27 è stato preso con I2C scanner
 
@@ -73,6 +75,8 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       Serial.print(device_name);
       Serial.printf(" distanza: %.2f m: %s\n", distance, liv_rischio);
 
+      publishMessage();
+      
       if (device_name == "HONOR Band 5-412") {
         lcd.setCursor(0, 0);
         lcd.print(liv_rischio);
@@ -201,7 +205,7 @@ void publishMessage()
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
-  //delay(1000);
+  delay(1000);
 }
 
 void publishMessageWifi()
@@ -265,7 +269,7 @@ void BLEScan() {
 
   Serial.println("BLE SCAN: ");
   BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
-  publishMessage();
+  //publishMessage();
   Serial.print("Devices found: ");
   Serial.println(foundDevices.getCount());
   Serial.println("Scan done!");
