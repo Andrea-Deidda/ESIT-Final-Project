@@ -201,6 +201,7 @@ void publishMessage()
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+  delay(1000);
 }
 
 void publishMessageWifi()
@@ -216,6 +217,7 @@ void publishMessageWifi()
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+  delay(1000);
 
 }
 
