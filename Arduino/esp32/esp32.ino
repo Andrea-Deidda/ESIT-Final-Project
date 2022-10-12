@@ -201,7 +201,7 @@ void publishMessage()
   serializeJson(doc, jsonBuffer); // print to client
 
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
-  delay(1000);
+  //delay(1000);
 }
 
 void publishMessageWifi()
@@ -272,7 +272,7 @@ void BLEScan() {
   Serial.println("");
   client.loop();
   //pBLEScan->clearResults();   // delete results fromBLEScan buffer to release memory
-  delay(10000);
+  delay(5000);
   lcd.clear();
 
 }
@@ -334,7 +334,7 @@ void WifiScan() {
   Serial.println("");
 
   // Wait a bit before scanning again
-  delay(10000);
+  delay(5000);
   lcd.clear();
 }
 
