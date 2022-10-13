@@ -12,8 +12,8 @@ import { ShadowService } from '../../service/shadow/shadow.service';
 export class ManageComponent implements OnInit {
 
   constructor(private shadowService: ShadowService, private router: Router) {
-    this.inputSafeRiskThreshold = 10
-    this.inputLowRiskThresholdMin = 3
+    //this.inputSafeRiskThreshold = 10
+    //this.inputLowRiskThresholdMin = 3
     this.inputLowRiskThresholdMax = 10
     this.inputMediumRiskThresholdMin = 1
     this.inputMediumRiskThresholdMax = 3
@@ -36,7 +36,7 @@ export class ManageComponent implements OnInit {
   }
 
   onSubmit(){
-
+    console.log(this.inputLowRiskThresholdMax)
     if( this.inputSafeRiskThreshold < this.inputLowRiskThresholdMax ||
         this.inputLowRiskThresholdMax < this.inputLowRiskThresholdMin ||
         this.inputLowRiskThresholdMin < this.inputMediumRiskThresholdMax ||
@@ -77,9 +77,21 @@ export class ManageComponent implements OnInit {
 
   getStatus(){
     this.shadowService.getStatus().subscribe(( response : any) => {
-      //console.log(response.state.reported.protocollo)
+      console.log(response.state.reported.protocollo)
       this.status = response.state.reported.protocollo.split("-", 1);
+      this.inputSafeRiskThreshold = response.state.reported.protocollo.split("-")[1];
+      this.inputLowRiskThresholdMin = response.state.reported.protocollo.split("-")[2];
+      //this.inputLowRiskThresholdMax = response.state.reported.protocollo.split("-")[3];
+      //this.inputMediumRiskThresholdMin = response.state.reported.protocollo.split("-")[4];
+      //this.inputMediumRiskThresholdMax = response.state.reported.protocollo.split("-")[5];
+      //this.inputHighRiskThreshold = response.state.reported.protocollo.split("-")[6];
       console.log(this.status);
+      console.log(this.inputSafeRiskThreshold);
+      console.log(this.inputLowRiskThresholdMin);
+      //console.log(this.inputLowRiskThresholdMax);
+      //console.log(this.inputMediumRiskThresholdMin);
+      //console.log(this.inputMediumRiskThresholdMax);
+      //console.log(this.inputHighRiskThreshold);
       if (this.status == 'ble'){
         this.status = 'Bluetooth'
       } else {
