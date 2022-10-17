@@ -12,20 +12,14 @@ import { ShadowService } from '../../service/shadow/shadow.service';
 export class ManageComponent implements OnInit {
 
   constructor(private shadowService: ShadowService, private router: Router) {
-    //this.inputSafeRiskThreshold = 10
-    //this.inputLowRiskThresholdMin = 3
-    this.inputLowRiskThresholdMax = 10
-    this.inputMediumRiskThresholdMin = 1
-    this.inputMediumRiskThresholdMax = 3
-    this.inputHighRiskThreshold = 1
   }
 
-  inputSafeRiskThreshold!: number;
-  inputLowRiskThresholdMin!: number;
-  inputLowRiskThresholdMax!: number;
-  inputMediumRiskThresholdMin!: number;
-  inputMediumRiskThresholdMax!: number;
-  inputHighRiskThreshold!: number;
+  inputSafeRiskThreshold!: string;
+  inputLowRiskThresholdMin!: string;
+  inputLowRiskThresholdMax!: string;
+  inputMediumRiskThresholdMin!: string;
+  inputMediumRiskThresholdMax!: string;
+  inputHighRiskThreshold!: string;
 
   radioButton!: string;
 
@@ -37,12 +31,13 @@ export class ManageComponent implements OnInit {
 
   onSubmit(){
     console.log(this.inputLowRiskThresholdMax)
-    if( this.inputSafeRiskThreshold < this.inputLowRiskThresholdMax ||
-        this.inputLowRiskThresholdMax < this.inputLowRiskThresholdMin ||
-        this.inputLowRiskThresholdMin < this.inputMediumRiskThresholdMax ||
-        this.inputMediumRiskThresholdMax < this.inputMediumRiskThresholdMin ||
-        this.inputMediumRiskThresholdMin < this.inputHighRiskThreshold) {
+    if( parseInt(this.inputSafeRiskThreshold) < parseInt(this.inputLowRiskThresholdMax) ||
+      parseInt(this.inputLowRiskThresholdMax) < parseInt(this.inputLowRiskThresholdMin) ||
+        parseInt(this.inputLowRiskThresholdMin) < parseInt(this.inputMediumRiskThresholdMax) ||
+          parseInt(this.inputMediumRiskThresholdMax) < parseInt(this.inputMediumRiskThresholdMin) ||
+            parseInt(this.inputMediumRiskThresholdMin) < parseInt(this.inputHighRiskThreshold)) {
 
+      console.log(typeof this.inputSafeRiskThreshold);
       window.alert("Invalid threshold values!");
 
     } else {
@@ -81,17 +76,22 @@ export class ManageComponent implements OnInit {
       this.status = response.state.reported.protocollo.split("-", 1);
       this.inputSafeRiskThreshold = response.state.reported.protocollo.split("-")[1];
       this.inputLowRiskThresholdMin = response.state.reported.protocollo.split("-")[2];
-      //this.inputLowRiskThresholdMax = response.state.reported.protocollo.split("-")[3];
-      //this.inputMediumRiskThresholdMin = response.state.reported.protocollo.split("-")[4];
-      //this.inputMediumRiskThresholdMax = response.state.reported.protocollo.split("-")[5];
-      //this.inputHighRiskThreshold = response.state.reported.protocollo.split("-")[6];
+      this.inputLowRiskThresholdMax = response.state.reported.protocollo.split("-")[3];
+      this.inputMediumRiskThresholdMin = response.state.reported.protocollo.split("-")[4];
+      this.inputMediumRiskThresholdMax = response.state.reported.protocollo.split("-")[5];
+      this.inputHighRiskThreshold = response.state.reported.protocollo.split("-")[6];
+
+      response.state.reported.protocollo = this.status + "-" + this.inputSafeRiskThreshold + "-" + this.inputLowRiskThresholdMin + "-" +
+        this.inputLowRiskThresholdMax + "-" + this.inputMediumRiskThresholdMin + "-" + this.inputMediumRiskThresholdMax + "-"
+        + this.inputHighRiskThreshold;
+
       console.log(this.status);
       console.log(this.inputSafeRiskThreshold);
       console.log(this.inputLowRiskThresholdMin);
-      //console.log(this.inputLowRiskThresholdMax);
-      //console.log(this.inputMediumRiskThresholdMin);
-      //console.log(this.inputMediumRiskThresholdMax);
-      //console.log(this.inputHighRiskThreshold);
+      console.log(this.inputLowRiskThresholdMax);
+      console.log(this.inputMediumRiskThresholdMin);
+      console.log(this.inputMediumRiskThresholdMax);
+      console.log(this.inputHighRiskThreshold);
       if (this.status == 'ble'){
         this.status = 'Bluetooth'
       } else {

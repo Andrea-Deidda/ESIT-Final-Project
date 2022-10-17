@@ -31,7 +31,8 @@ void publishMessage();
 // set LCD address, number of columns and rows
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); // 0x27 è stato preso con I2C scanner
 
-const int LED1 = 5;
+const int LEDROSSO = 2;
+const int LEDVERDE = 5;
 const int buzzer = 23;
 
 String sndPayloadWIFI = "{\"state\": { \"reported\": { \"protocollo\": \"wifi-10-3-10-1-3-1\" } }}";
@@ -134,13 +135,15 @@ void connectAWS()
   Serial.print("Connecting to AWS IOT");
 
   while (!client.connect(THINGNAME)) {
-    digitalWrite(LED1, LOW);
+    digitalWrite(LEDROSSO, HIGH);
+    digitalWrite(LEDVERDE, LOW);
     Serial.print(".");
     delay(100);
   }
 
   if (!client.connected()) {
-    digitalWrite(LED1, LOW);
+    digitalWrite(LEDROSSO, HIGH);
+    digitalWrite(LEDVERDE, LOW);
     Serial.println("AWS IoT Timeout!");
     return;
   }
@@ -150,7 +153,8 @@ void connectAWS()
   client.subscribe(AWS_IOT_SUBSCRIBE_SHADOW_TOPIC);
 
   Serial.println("AWS IoT Connected!");
-  digitalWrite(LED1, HIGH);
+  digitalWrite(LEDROSSO, LOW);
+  digitalWrite(LEDVERDE, HIGH);
 }
 
 //funzione che restituisce un timestamp univoco per creare un ID per il messaggio MQTT
@@ -232,7 +236,8 @@ void messageHandler(String &topic, String &payload) {
 
 void setup() {
 
-  pinMode(LED1, OUTPUT);
+  pinMode(LEDROSSO, OUTPUT);
+  pinMode(LEDVERDE, OUTPUT);
   pinMode(buzzer, OUTPUT);
 
   // initialize LCD
